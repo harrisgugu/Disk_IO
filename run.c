@@ -52,12 +52,8 @@ int main(int argc, char* argv[])
     if (strcmp(operation, "-w") == 0) {
         // open the file for writing
         // check if the file is open
-        int fd = open(filename,O_RDONLY);
-        if (fd==-1) {
-            printf("Error: opening file for writing\n");
-            FILE *fp;
-            fp = fopen(filename,"w");
-        }
+        int fd = open(filename,O_WRONLY|O_CREAT,0744);
+        
         
 
         // get the start time
@@ -65,7 +61,7 @@ int main(int argc, char* argv[])
 
         // write the file in blocks
         for (int i = 0; i < block_count; i++) {
-            write(STDOUT_FILENO,buffer,block_size);
+            write(fd,buffer,block_size);
         }
 
         // get the end time
