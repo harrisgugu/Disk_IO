@@ -7,7 +7,6 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#define BUFFER_SIZE 1024
 
 unsigned int xorbuf(unsigned int *buffer, int size) {
     unsigned int result = 0;
@@ -47,7 +46,6 @@ int main(int argc, char* argv[])
         // buffer to store the data
     unsigned int* buffer;
     buffer = (unsigned int*)malloc(block_size*sizeof(unsigned int));
-    //unsigned int* buffer[BUFFER_SIZE];
 
     if (strcmp(operation, "-w") == 0) {
         // open the file for writing
@@ -92,12 +90,12 @@ int main(int argc, char* argv[])
         unsigned int xor_value = 0;
         for (int i = 0; i < block_count; i++) {
             int read_bytes=  read(fd,buffer,block_size);
-            printf("readbytes: %d\n",read_bytes);
+            //printf("readbytes: %d\n",read_bytes);
             if(read_bytes<=0)
                 break;
             xor_value ^= xorbuf(buffer,block_size);
             
-            printf("xor value: %x\n", xor_value);
+            //printf("xor value: %x\n", xor_value);
 
 
         }
@@ -114,10 +112,12 @@ int main(int argc, char* argv[])
         // print the read performance
         unsigned long filesize=  (unsigned long)getFileSize(filename);
         double performance = filesize/(elapsed*1024*1024);
-        printf("Read performance: %f MiB/s\n", performance);        
-        printf("Time taken: %f seconds\n", elapsed);
-        printf("XOR value: %x\n", xor_value);
-        printf("filesize: %ld\n",filesize);
+        //printf("Read performance: %f MiB/s\n", performance);  
+        // printf("Read performance: %f MiB/s\n", performance);        
+        //printf("%f",elapsed);
+        printf("%f",performance);
+        // printf("XOR value: %x\n", xor_value);
+        // printf("filesize: %ld\n",filesize);
     }
     else {
         printf("Error: Invalid operation\n");
